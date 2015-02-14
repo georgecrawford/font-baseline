@@ -1,0 +1,30 @@
+{
+  "name": "font-baseline",
+  "version": "0.0.0",
+  "description": "Get the baseline height of a font",
+  "main": "index.js",
+  "scripts": {
+    "files": "find . -name '*.js' ! -path './node_modules/*'",
+    "jshint": "./node_modules/.bin/jshint `npm run -s files`",
+    "lintspaces": "./node_modules/.bin/lintspaces -i js-comments -e .editorconfig `npm run -s files`",
+    "test": "./node_modules/mocha-phantomjs/bin/mocha-phantomjs -R dot ./test/index.html && npm run jshint && npm run lintspaces"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/georgecrawford/font-baseline.git"
+  },
+  "author": "George Crawford",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/georgecrawford/font-baseline/issues"
+  },
+  "homepage": "https://github.com/georgecrawford/font-baseline",
+  "devDependencies": {
+    "chai": "^2.0.0",
+    "jshint": "^2.5.5",
+    "lintspaces-cli": "0.0.4",
+    "mocha": "^1.21.4",
+    "mocha-phantomjs": "git+https://github.com/georgecrawford/mocha-phantomjs.git#javascript",
+    "phantomjs": "^1.9.15"
+  }
+}

@@ -1,0 +1,90 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="../node_modules/mocha/mocha.css" />
+		<script src="../node_modules/mocha/mocha.js"></script>
+		<script src="../node_modules/chai/chai.js"></script>
+		<script>
+			mocha.ui('bdd');
+			mocha.reporter('html');
+			assert = chai.assert;
+		</script>
+		<script src="../index.js"></script>
+		<script src="test.js"></script>
+
+		<style>
+			@font-face {
+				font-family: 'Open Sans';
+				font-style: normal;
+				font-weight: 400;
+				src: url(../fonts/OpenSans.ttf) format('truetype');
+				unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+			}
+			@font-face {
+			  font-family: 'Pacifico';
+			  font-style: normal;
+			  font-weight: 400;
+			  src: url(../fonts/Pacifico.ttf) format('truetype');
+			  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+			}
+
+			.preload {
+				margin: 20px;
+				border: 1px solid hotpink;
+				padding: 10px;
+				width: 100px;
+			}
+
+			body,
+			.open-sans {
+				font-family: 'Open Sans', sans-serif;
+			}
+
+			.pacifico {
+				font-family: 'Pacifico', sans-serif;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="preload">
+			<div id="open-sans">font preload</div>
+			<div id="pacifico">font preload</div>
+		</div>
+		<div id="mocha"></div>
+
+		<script>
+
+			function test() {
+				if (window.mochaPhantomJS) {
+					mochaPhantomJS.run();
+				} else {
+					mocha.run();
+				}
+			}
+
+			var preloadOpenSans = document.getElementById('open-sans');
+			var preloadPacifico = document.getElementById('pacifico');
+
+			// Get initial heights
+			var initialHeightOpenSans = preloadOpenSans.offsetHeight;
+			var initialHeightPacifico = preloadPacifico.offsetHeight;
+
+			// Set the font-face
+			preloadOpenSans.className = 'open-sans';
+			preloadPacifico.className = 'pacifico';
+
+			// When the heights change, the fonts are definitely loaded
+			var interval = window.setInterval(function() {
+				if (preloadOpenSans.offsetHeight !== initialHeightOpenSans && preloadPacifico.offsetHeight !== initialHeightPacifico) {
+					clearInterval(interval);
+					clearTimeout(timeout);
+					test();
+				}
+			}, 50);
+
+			var timeout = setTimeout(function() {
+				console.error('Web fonts failed to load after 5 seconds');
+			}, 5000);
+		</script>
+	</body>
+</html>
