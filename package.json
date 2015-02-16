@@ -1,6 +1,6 @@
 {
   "name": "font-baseline",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Get the baseline height of a font",
   "main": "index.js",
   "scripts": {
