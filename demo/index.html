@@ -183,9 +183,7 @@
 			var initialHeightOpenSans = preloadOpenSans.offsetHeight;
 			var initialHeightPacifico = preloadPacifico.offsetHeight;
 
-			if (22 === preloadPacifico.offsetHeight) {
-				debugger;
-			}
+			console.log('initial', initialHeightOpenSans, initialHeightPacifico);
 
 			// Set the font-faces
 			Array.prototype.slice.apply(document.querySelectorAll('[data-font]')).forEach(function(node) {
