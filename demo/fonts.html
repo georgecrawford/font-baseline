@@ -1,0 +1,130 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<script src="../index.js"></script>
+
+		<style>
+
+			.measure,
+			.output {
+				margin: 30px;
+			}
+
+			.measure {
+				outline: 1px solid hotpink;
+				position: relative;
+				font-family: "Times New Roman";
+			}
+
+			.measure p {
+				margin: 0;
+			}
+
+			.measure span {
+				background: rgba(192, 192, 192, 0.25);
+			}
+
+			.info {
+				position: absolute;
+				top: 20px;
+				right: 20px;
+				width: 200px;
+				overflow: scroll;
+			}
+
+			.info p {
+				font-family: monospace;
+				font-size: 12px;
+				white-space: pre;
+				overflow: scroll;
+			}
+
+			.info h6 {
+				margin: 0;
+			}
+
+		</style>
+	</head>
+	<body>
+
+		<div class="output">Select font:
+			<select class="font"/>
+				<option>Andale Mono</option>
+				<option>Arial</option>
+				<option>Arial Black</option>
+				<option>Comic Sans MS</option>
+				<option>Courier New</option>
+				<option>Georgia</option>
+				<option>Impact</option>
+				<option selected>Times New Roman</option>
+				<option>Trebuchet MS</option>
+				<option>Verdana</option>
+				<option>Webdings</option>
+				<option>Adobe Minion Web</option>
+			</select>
+		</div>
+
+		<div class="output">Set font size: <input class="font-size" type="range"/></div>
+		<div class="output">Set line-height: <input class="line-height" type="range"/></div>
+
+		<div class="measure">
+			<p>
+				<span>Lorem ipsum dolor sit amet,</span><br />
+				<span>consectetur adipiscing elit. Vestibulum</span><br />
+				<span>vel ante lorem. Donec interdum in arcu</span><br />
+				<span>eget rhoncus. Aliquam erat volutpat.</span>
+			</p>
+		</div>
+		<div class="info">
+			<h6>Baseline metrics:</h6>
+			<p></p>
+		</div>
+
+
+		<script>
+
+			var fontBaseline     = window['font-baseline'],
+				node             = document.querySelector('.measure'),
+				info             = document.querySelector('.info p'),
+				parag            = node.querySelector('p'),
+				fontSlider       = document.querySelector('.font-size'),
+				lineHeightSlider = document.querySelector('.line-height'),
+				fontSelect       = document.querySelector('.font');
+
+			function measure() {
+				var baseline = fontBaseline(parag);
+
+				info.innerText = JSON.stringify(baseline, null, '    ');
+				node.style.background = '-webkit-linear-gradient(top, #87CEEB, #87CEEB 1px, rgba(0,0,0,0) 1px, rgba(0,0,0,0)) 0% -' + baseline.offset + 'px / 100% ' + baseline.line + 'px, -webkit-linear-gradient(top, hotpink, hotpink 1px, rgba(0,0,0,0) 1px, rgba(0,0,0,0)) 0% 0% / 100% ' + baseline.line + 'px';
+			}
+
+			function setFontSize(event) {
+				node.style.fontSize = (event.target.value / 2) + 'px';
+				measure();
+			}
+
+			function setLineHeight(event) {
+				node.style.lineHeight = (event.target.value * 2) + 'px';
+				measure();
+			}
+
+			function setFont(event) {
+				node.style.fontFamily = event.target.value;
+				measure();
+			}
+
+			fontSlider.addEventListener('change', setFontSize);
+			fontSlider.addEventListener('input', setFontSize);
+			lineHeightSlider.addEventListener('change', setLineHeight);
+			lineHeightSlider.addEventListener('input', setLineHeight);
+
+			fontSelect.addEventListener('change', setFont);
+
+			node.style.fontSize = '25px';
+			node.style.lineHeight = '100px';
+			node.style.fontFamily = 'Times New Roman';
+			measure();
+
+		</script>
+	</body>
+</html>
