@@ -1,0 +1,132 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<script src="../index.js"></script>
+
+		<style>
+			@font-face {
+				font-family: 'Open Sans';
+				font-style: normal;
+				font-weight: 400;
+				src: url(../fonts/OpenSans.ttf) format('truetype');
+				unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+			}
+
+			body {
+				font-size: 16px;
+			}
+
+			span {
+				background: rgba(192, 192, 192, 0.25);
+			}
+
+			.measure {
+				margin: 30px;
+				outline: 1px solid hotpink;
+				position: relative;
+				font-family: 'Open Sans', sans-serif;
+				background: -webkit-linear-gradient(top, #87CEEB, #87CEEB 1px, rgba(0, 0, 0, 0) 1px, rgba(0, 0, 0, 0)) 0% 0% / 100% 100px;
+			}
+
+			.measure p {
+				margin: 0 10px;
+				line-height: 100px;
+				font-size: 40px;
+				position: relative;
+			}
+
+			.measure p:after {
+			    content: '';
+			    position: absolute;
+			    width: 557px;
+			    height: 1px;
+			    top: 165px;
+			    background: #D05ACA;
+			    left: 0;
+			}
+
+			.measure p:before {
+			    content: '';
+			    position: absolute;
+			    width: 151px;
+			    height: 40px;
+			    top: 134px;
+			    background: rgba(95, 71, 94, 0.51);
+			    left: 0px;
+			}
+
+			.line {
+			    position: absolute;
+			    width: 1px;
+			    height: 20px;
+			    background: black;
+			    left: 0;
+			    top: 20px;
+			    font-size: 9px;
+			    white-space: pre;
+			    line-height: 1.3em;
+			}
+
+			.line:before,
+			.line:after {
+			    bottom: 100%;
+			    left: -3px;
+			    content: "";
+			    height: 1px;
+			    width: 7px;  position: absolute;
+			    background: #000;
+			}
+
+			.line:before {
+			    bottom: 0;
+			}
+
+			.line:after {
+			    top: 0;
+			}
+
+			.font:before,
+			.font:after {
+			    background: white;
+			}
+
+			.info {
+				outline: none;
+			}
+
+			.info p {
+				font-family: monospace;
+				font-size: 12px;
+				white-space: pre;
+				overflow: scroll;
+			}
+
+		</style>
+
+	</head>
+	<body>
+		<div class="info">
+			<h3>Baseline metrics:</h3>
+			<p>{
+  "baseline": 12,
+  "content": 55,
+  "font": 40,
+  "line": 100,
+  "multiplier": 0.7272727272727273,
+  "offset": 34.5
+}</p>
+		</div>
+		<div class="measure">
+			<p>
+				<span>Lorem ipsum dolor sit amet.<br /> <span style="background: rgba(0, 128, 0, 0.25);">Aliquam interdum in arcueget</span><br /> rhoncus. Donec erat volutpat.</span>
+			</p>
+			<div class="line lineheight" style="height: 100px;top: 100px;left: 286px;">  Line-height 100px</div>
+			<div class="line content" style="height: 55px;top: 122px;left: 188px;"> Content box 55px</div>
+			<div class="line font" style="height: 40px;top: 134px;left: 80px;background: white;color: white;">  Font-size 40px</div>
+			<div class="line baseline" style="height: 12px;left: 464px;top: 165px;">  Baseline<br />  12px</div>
+			<div class="line half-leading" style="height: 22.5px;left: 388px;top: 100px;">  Half-leading<br />  22.5px</div>
+			<div class="line half-leading" style="height: 22.5px;left: 388px;top: 177px;">  Half-leading<br />  22.5px</div>
+			<div class="line offset" style="height: 34.5px;left: 574px;top: 165px;">  Offset<br />  34.5px</div>
+		</div>
+	</body>
+</html>

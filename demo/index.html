@@ -1,0 +1,205 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<script src="../index.js"></script>
+
+		<style>
+			@font-face {
+				font-family: 'Open Sans';
+				font-style: normal;
+				font-weight: 400;
+				src: url(../fonts/OpenSans.ttf) format('truetype');
+				unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+			}
+			@font-face {
+			  font-family: 'Pacifico';
+			  font-style: normal;
+			  font-weight: 400;
+			  src: url(../fonts/Pacifico.ttf) format('truetype');
+			  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+			}
+
+			.preload {
+				visibility: hidden;
+				position: absolute;
+			}
+
+			.demo {
+				margin: 30px;
+			}
+
+			.measure {
+				outline: 1px solid hotpink;
+				position: relative;
+				margin-bottom: 30px;
+				width: 45%;
+				float: left;
+			}
+
+			.measure:nth-of-type(odd) {
+				margin-right: 10%;
+			}
+
+			p {
+				margin: 0;
+				line-height: 30px;
+			}
+
+			.measure.normal p {
+				line-height: normal;
+			}
+
+			body {
+				font-size: 16px;
+			}
+
+			body,
+			.open-sans {
+				font-family: 'Open Sans', sans-serif;
+			}
+
+			.pacifico {
+				font-family: 'Pacifico', sans-serif;
+			}
+
+			.measure.highlight span {
+				outline: 1px solid #C0C0C0;
+				background: rgba(192, 192, 192, 0.25);
+			}
+
+			.info {
+				outline: none;
+			}
+
+			.info p {
+				font-family: monospace;
+				font-size: 12px;
+				white-space: pre;
+				overflow: scroll;
+			}
+
+			.info h6 {
+				margin: 0;
+			}
+
+		</style>
+	</head>
+	<body>
+		<div class="preload">
+			<div data-font="open-sans"><span>font preload</span></div>
+			<div data-font="pacifico"><span>font preload</span></div>
+		</div>
+
+		<div class="demo">
+			<div class="measure highlight" data-font="open-sans">
+				<p>
+					<span>Lorem ipsum dolor sit amet,</span><br />
+					<span>consectetur adipiscing elit. Vestibulum</span><br />
+					<span>vel ante lorem. Donec interdum in arcu</span><br />
+					<span>eget rhoncus. Aliquam erat volutpat.</span>
+				</p>
+			</div>
+			<div class="measure info" data-font="open-sans">
+				<h6>Baseline metrics:</h6>
+				<p></p>
+			</div>
+			<div class="measure" data-font="open-sans">
+				<p>
+					<span>Lorem ipsum dolor sit amet,</span><br />
+					<span>consectetur adipiscing elit. Vestibulum</span><br />
+					<span>vel ante lorem. Donec interdum in arcu</span><br />
+					<span>eget rhoncus. Aliquam erat volutpat.</span>
+				</p>
+			</div>
+			<div class="measure fix" data-font="open-sans">
+				<p>
+					<span>Lorem ipsum dolor sit amet,</span><br />
+					<span>consectetur adipiscing elit. Vestibulum</span><br />
+					<span>vel ante lorem. Donec interdum in arcu</span><br />
+					<span>eget rhoncus. Aliquam erat volutpat.</span>
+				</p>
+			</div>
+			<div class="measure normal" data-font="open-sans">
+				<p>
+					<span>Lorem ipsum dolor sit amet,</span><br />
+					<span>consectetur adipiscing elit. Vestibulum</span><br />
+					<span>vel ante lorem. Donec interdum in arcu</span><br />
+					<span>eget rhoncus. Aliquam erat volutpat.</span>
+				</p>
+			</div>
+			<div class="measure normal fix" data-font="open-sans">
+				<p>
+					<span>Lorem ipsum dolor sit amet,</span><br />
+					<span>consectetur adipiscing elit. Vestibulum</span><br />
+					<span>vel ante lorem. Donec interdum in arcu</span><br />
+					<span>eget rhoncus. Aliquam erat volutpat.</span>
+				</p>
+			</div>
+			<div class="measure" data-font="pacifico">
+				<p>
+					<span>Lorem ipsum dolor sit amet,</span><br />
+					<span>consectetur adipiscing elit. Vestibulum</span><br />
+					<span>vel ante lorem. Donec interdum in arcu</span><br />
+					<span>eget rhoncus. Aliquam erat volutpat.</span>
+				</p>
+			</div>
+			<div class="measure fix" data-font="pacifico">
+				<p>
+					<span>Lorem ipsum dolor sit amet,</span><br />
+					<span>consectetur adipiscing elit. Vestibulum</span><br />
+					<span>vel ante lorem. Donec interdum in arcu</span><br />
+					<span>eget rhoncus. Aliquam erat volutpat.</span>
+				</p>
+			</div>
+		</div>
+
+
+		<script>
+
+			var fontBaseline = window['font-baseline'];
+
+			function measure() {
+				Array.prototype.slice.apply(document.querySelectorAll('.measure')).forEach(function(node) {
+					var parag    = node.querySelector('p'),
+						baseline = fontBaseline(parag);
+
+					if (node.classList.contains('info')) {
+						parag.innerText = JSON.stringify(baseline, null, '    ');
+						parag.style.lineHeight = 'normal';
+					} else {
+						if (node.classList.contains('fix')) {
+							parag.style.paddingTop = baseline.offset + 'px';
+						}
+
+						node.style.background = '-webkit-linear-gradient(top, #87CEEB, #87CEEB 1px, rgba(0,0,0,0) 1px, rgba(0,0,0,0)) 0% 0% / 100% ' + baseline.line + 'px';
+					}
+				});
+			}
+
+			var preloadOpenSans = document.querySelector('.preload [data-font="open-sans"]');
+			var preloadPacifico = document.querySelector('.preload [data-font="pacifico"]');
+
+			// Get initial heights
+			var initialHeightOpenSans = preloadOpenSans.offsetHeight;
+			var initialHeightPacifico = preloadPacifico.offsetHeight;
+
+			// Set the font-faces
+			Array.prototype.slice.apply(document.querySelectorAll('[data-font]')).forEach(function(node) {
+				node.classList.add(node.getAttribute('data-font'));
+			});
+
+			// When the heights change, the fonts are definitely loaded
+			var interval = window.setInterval(function() {
+				if (preloadOpenSans.offsetHeight !== initialHeightOpenSans && preloadPacifico.offsetHeight !== initialHeightPacifico) {
+					clearInterval(interval);
+					clearTimeout(timeout);
+					measure();
+				}
+			}, 50);
+
+			var timeout = setTimeout(function() {
+				console.error('Web fonts failed to load after 5 seconds');
+			}, 5000);
+		</script>
+	</body>
+</html>
