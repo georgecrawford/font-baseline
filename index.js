@@ -5,22 +5,22 @@
 		var div   = document.createElement('div'),
 			style = document.createElement('style'),
 			strut = document.createElement('span'),
-			baselineHeight;
+			height;
 
 		container = container || document.body;
 
 		strut.innerText = 'T';
-		style.innerText = ".font-baseline{visibility:hidden;height:100px;}.font-baseline span{line-height:0;}.font-baseline span:after{content: '';height: 100%;display: inline-block;}";
+		style.innerText = ".font-baseline{visibility:hidden;height:100px;}.font-baseline span{line-height:0;}.font-baseline span:after{content:'';height:100%;display:inline-block;}";
 
 		div.appendChild(strut);
 		div.appendChild(style);
 		div.classList.add('font-baseline');
 
 		container.appendChild(div);
-		baselineHeight = strut.offsetTop + strut.offsetHeight - div.offsetHeight - div.offsetTop;
+		height = strut.offsetTop + strut.offsetHeight - div.offsetHeight - div.offsetTop;
 		div.parentNode.removeChild(div);
 
-		return baselineHeight;
+		return height;
 	}
 
 	module.exports = fontBaseline;

@@ -1,16 +1,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<link rel="stylesheet" href="../node_modules/mocha/mocha.css" />
-		<script src="../node_modules/mocha/mocha.js"></script>
-		<script src="../node_modules/chai/chai.js"></script>
-		<script>
-			mocha.ui('bdd');
-			mocha.reporter('html');
-			assert = chai.assert;
-		</script>
 		<script src="../index.js"></script>
-		<script src="test.js"></script>
 
 		<style>
 			@font-face {
@@ -34,17 +25,11 @@
 			}
 
 			.measure {
-				margin: 20px;
-				padding: 10px;
-				width: 200px;
-			}
-
-			.measure div {
-				margin: 10px;
-			}
-
-			.measure span {
+				width: 300px;
+				line-height: 30px;
+				margin: 30px;
 				outline: 1px solid hotpink;
+				position: relative;
 			}
 
 			body {
@@ -59,6 +44,19 @@
 			.pacifico {
 				font-family: 'Pacifico', sans-serif;
 			}
+
+			.underscore {
+				height: 1px;
+				background: green;
+				width: 100%;
+				position: absolute;
+				top: 5px;
+			}
+
+			span {
+				background: #ddd;
+			}
+
 		</style>
 	</head>
 	<body>
@@ -67,21 +65,24 @@
 			<div data-font="pacifico"><span>font preload</span></div>
 		</div>
 
-		<div class="measure">
-			<div data-font="open-sans"><span>abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</span></div>
-			<div data-font="pacifico"><span>abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</span></div>
-		</div>
-
-		<div id="mocha"></div>
+		<div class="measure" data-font="open-sans"><div class="underscore"></div><span>Lorem ipsum dolor sit amet,</span><br /> consectetur adipiscing elit. Vestibulum vel ante lorem. Donec interdum in arcu eget rhoncus. Aliquam erat volutpat.</div>
+		<div class="measure" data-font="pacifico"><div class="underscore"></div><span>Lorem ipsum dolor sit amet,</span><br /> consectetur adipiscing elit. Vestibulum vel ante lorem. Donec interdum in arcu eget rhoncus. Aliquam erat volutpat.</div>
 
 		<script>
 
-			function test() {
-				if (window.mochaPhantomJS) {
-					mochaPhantomJS.run();
-				} else {
-					mocha.run();
-				}
+			var fontBaseline = window['font-baseline'];
+
+			function measure() {
+				Array.prototype.slice.apply(document.querySelectorAll('.measure')).forEach(function(node) {
+
+					var baselineHeight = fontBaseline(node);
+					var computedStyle  = window.getComputedStyle(node);
+					var lineHeight     = parseInt(computedStyle.lineHeight, 10);
+					var inlineHeight   = parseInt(node.querySelector('span').offsetHeight, 10);
+
+					var offset = ((lineHeight - inlineHeight) / 2) + inlineHeight - baselineHeight;
+					node.querySelector('.underscore').style.top = offset + 'px';
+				});
 			}
 
 			var preloadOpenSans = document.querySelector('.preload [data-font="open-sans"]');
@@ -101,7 +102,7 @@
 				if (preloadOpenSans.offsetHeight !== initialHeightOpenSans && preloadPacifico.offsetHeight !== initialHeightPacifico) {
 					clearInterval(interval);
 					clearTimeout(timeout);
-					test();
+					measure();
 				}
 			}, 50);
 

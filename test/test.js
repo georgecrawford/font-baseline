@@ -17,16 +17,15 @@ afterEach(function () {
 
 describe('Font Baseline', function() {
 
-	it('should measure the baseline of OpenSans', function() {
-		assert.equal(fontBaseline(document.getElementById('open-sans')), 5);
-
+	it('should measure the baseline of OpenSans as 5px at 16px font-size', function() {
+		assert.equal(fontBaseline(document.querySelector('.measure .open-sans')), 5);
 	});
 
-	it('should measure the baseline of Pacifico', function() {
-		assert.equal(fontBaseline(document.getElementById('pacifico')), 7);
+	it('should measure the baseline of Pacifico as 7px at 16px font-size', function() {
+		assert.equal(fontBaseline(document.querySelector('.measure .pacifico')), 7);
 	});
 
 	it('should measure in the body by default, inheriting OpenSans font', function() {
-		assert.equal(fontBaseline(), 5);
+		assert.equal(fontBaseline(document.querySelector('.measure .open-sans')), 5);
 	});
 });
