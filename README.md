@@ -10,3 +10,5 @@ http://static.zealous-studios.co.uk/projects/web_tests/line%20box.xhtml
 http://jeffyam.com/node/189
 
 https://mudcu.be/journal/2011/01/html5-typographic-metrics/#baselineCSS
+
+http://dev.labs.ft.com/george/baseline/

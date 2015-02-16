@@ -7,7 +7,7 @@
     "files": "find . -name '*.js' ! -path './node_modules/*'",
     "jshint": "./node_modules/.bin/jshint `npm run -s files`",
     "lintspaces": "./node_modules/.bin/lintspaces -i js-comments -e .editorconfig `npm run -s files`",
-    "test": "./node_modules/mocha-phantomjs/bin/mocha-phantomjs -R dot ./test/index.html && npm run jshint && npm run lintspaces"
+    "test": "./node_modules/mocha-phantomjs/bin/mocha-phantomjs -R spec ./test/index.html && npm run jshint && npm run lintspaces"
   },
   "repository": {
     "type": "git",
