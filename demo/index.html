@@ -194,6 +194,7 @@
 
 			// When the heights change, the fonts are definitely loaded
 			var interval = window.setInterval(function() {
+				console.log(preloadPacifico.offsetHeight);
 				if (preloadOpenSans.offsetHeight !== initialHeightOpenSans && preloadPacifico.offsetHeight !== initialHeightPacifico) {
 					clearInterval(interval);
 					clearTimeout(timeout);
