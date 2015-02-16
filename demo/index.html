@@ -53,7 +53,6 @@
 				font-size: 16px;
 			}
 
-			body,
 			.open-sans {
 				font-family: 'Open Sans', sans-serif;
 			}
@@ -183,8 +182,6 @@
 			var initialHeightOpenSans = preloadOpenSans.offsetHeight;
 			var initialHeightPacifico = preloadPacifico.offsetHeight;
 
-			console.log('initial', initialHeightOpenSans, initialHeightPacifico);
-
 			// Set the font-faces
 			Array.prototype.slice.apply(document.querySelectorAll('[data-font]')).forEach(function(node) {
 				node.classList.add(node.getAttribute('data-font'));
@@ -192,7 +189,6 @@
 
 			// When the heights change, the fonts are definitely loaded
 			var interval = window.setInterval(function() {
-				console.log(preloadPacifico.offsetHeight);
 				if (preloadOpenSans.offsetHeight !== initialHeightOpenSans && preloadPacifico.offsetHeight !== initialHeightPacifico) {
 					clearInterval(interval);
 					clearTimeout(timeout);
