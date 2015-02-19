@@ -9,11 +9,14 @@
 
 		container = container || document.body;
 
-		strut.innerText = 'T';
-		style.innerText = ".font-baseline{visibility:hidden;height:100px;}.font-baseline span:after{content:'';height:100%;display:inline-block;}";
+		// Webkit hack: http://davidwalsh.name/add-rules-stylesheets
+		style.appendChild(document.createTextNode(''));
+		document.head.appendChild(style);
+		style.sheet.insertRule('.font-baseline{visibility:hidden;height:100px;}', 0);
+		style.sheet.insertRule('.font-baseline span:after{content:\'\';height:100%;display:inline-block;}', 1);
 
+		strut.textContent = 'T';
 		div.appendChild(strut);
-		div.appendChild(style);
 		div.classList.add('font-baseline');
 		container.appendChild(div);
 
@@ -29,6 +32,7 @@
 		lineHeight     = lineHeight || strutHeight;
 
 		div.parentNode.removeChild(div);
+		style.parentNode.removeChild(style);
 
 		return {
 			baseline:   baselineHeight,
