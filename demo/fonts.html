@@ -93,9 +93,10 @@
 
 			function measure() {
 				var baseline = fontBaseline(parag);
+				console.log('Baseline details:', baseline);
 
-				info.innerText = JSON.stringify(baseline, null, '    ');
-				node.style.background = '-webkit-linear-gradient(top, #87CEEB, #87CEEB 1px, rgba(0,0,0,0) 1px, rgba(0,0,0,0)) 0% -' + baseline.offset + 'px / 100% ' + baseline.line + 'px, -webkit-linear-gradient(top, hotpink, hotpink 1px, rgba(0,0,0,0) 1px, rgba(0,0,0,0)) 0% 0% / 100% ' + baseline.line + 'px';
+				info.textContent = JSON.stringify(baseline, null, '    ');
+				node.style.background = 'linear-gradient(to bottom, #87CEEB, #87CEEB 1px, rgba(0,0,0,0) 1px, rgba(0,0,0,0)) 0% -' + baseline.offset + 'px / 100% ' + baseline.line + 'px, linear-gradient(to bottom, hotpink, hotpink 1px, rgba(0,0,0,0) 1px, rgba(0,0,0,0)) 0% 0% / 100% ' + baseline.line + 'px';
 			}
 
 			function setFontSize(event) {
