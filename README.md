@@ -13,3 +13,5 @@ http://jeffyam.com/node/189
 https://mudcu.be/journal/2011/01/html5-typographic-metrics/#baselineCSS
 
 http://dev.labs.ft.com/george/baseline/
+
+http://christopheraue.net/2014/03/05/vertical-align/
