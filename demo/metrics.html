@@ -16,8 +16,14 @@
 				font-size: 16px;
 			}
 
+			.measure,
+			.output {
+				margin: 30px;
+			}
+
 			span {
 				background: rgba(192, 192, 192, 0.25);
+				white-space: nowrap;
 			}
 
 			.measure {
@@ -25,34 +31,12 @@
 				outline: 1px solid hotpink;
 				position: relative;
 				font-family: 'Open Sans', sans-serif;
-				background: linear-gradient(to bottom, #87CEEB, #87CEEB 1px, rgba(0, 0, 0, 0) 1px, rgba(0, 0, 0, 0)) 0% 0% / 100% 100px;
+				overflow: hidden;
 			}
 
 			.measure p {
 				margin: 0 10px;
-				line-height: 100px;
-				font-size: 40px;
 				position: relative;
-			}
-
-			.measure p:after {
-			    content: '';
-			    position: absolute;
-			    width: 557px;
-			    height: 1px;
-			    top: 165px;
-			    background: #D05ACA;
-			    left: 0;
-			}
-
-			.measure p:before {
-			    content: '';
-			    position: absolute;
-			    width: 151px;
-			    height: 40px;
-			    top: 134px;
-			    background: rgba(95, 71, 94, 0.51);
-			    left: 0px;
 			}
 
 			.line {
@@ -65,6 +49,8 @@
 			    font-size: 9px;
 			    white-space: pre;
 			    line-height: 1.3em;
+			    font-weight: bold;
+			    font-family: monospace;
 			}
 
 			.line:before,
@@ -85,13 +71,25 @@
 			    top: 0;
 			}
 
-			.font:before,
-			.font:after {
+			.font-size {
+				height: 100%;
+				top: 0;
+				left: 40px;
+				background: white;
+				color: white;
+			}
+
+			.font-size:before,
+			.font-size:after {
 			    background: white;
 			}
 
 			.info {
-				outline: none;
+				position: absolute;
+				top: 0px;
+				right: 20px;
+				width: 200px;
+				overflow: scroll;
 			}
 
 			.info p {
@@ -101,10 +99,46 @@
 				overflow: scroll;
 			}
 
+			.line-box {
+				background: rgba(0, 128, 0, 0.25);
+			}
+
+			.font-box {
+				background: rgba(27, 90, 134, 0.35);
+				vertical-align: middle;
+				width: 50%;
+				height: 1em;
+				display: inline-block;
+				margin-right: -50%;
+				border: 1px solid rgb(122, 122, 232);
+				position: relative;
+			}
+
 		</style>
 
 	</head>
 	<body>
+
+		<div class="output">Select font:
+			<select class="font-input"/>
+				<option>Andale Mono</option>
+				<option>Arial</option>
+				<option>Arial Black</option>
+				<option>Comic Sans MS</option>
+				<option>Courier New</option>
+				<option>Georgia</option>
+				<option>Impact</option>
+				<option selected>Times New Roman</option>
+				<option>Trebuchet MS</option>
+				<option>Verdana</option>
+				<option>Webdings</option>
+				<option>Adobe Minion Web</option>
+			</select>
+		</div>
+
+		<div class="output">Set font size: <input class="font-size-input" type="range"/></div>
+		<div class="output">Set line-height: <input class="line-height-input" type="range"/></div>
+
 		<div class="info">
 			<h3>Baseline metrics:</h3>
 			<p>{
@@ -118,16 +152,118 @@
 		</div>
 		<div class="measure">
 			<p>
-				<span>Lorem ipsum dolor sit amet.<br /> <span style="background: rgba(0, 128, 0, 0.25);">Aliquam interdum in arcueget</span><br /> rhoncus. Donec erat volutpat.</span>
+				<span>Lorem ipsum dolor sit amet.<br /> <span class='line-box'><span class="font-box"><span class="line font-size">  CSS font-size<br />  <span class="val"></span>px</span></span>Aliquam interdum in arcueget</span><br /> rhoncus. Donec erat volutpat.</span>
 			</p>
-			<div class="line lineheight" style="height: 100px;top: 100px;left: 286px;">  CSS line-height 100px</div>
-			<div class="line content" style="height: 55px;top: 122px;left: 170px;"> CSS content box 55px</div>
-			<div class="line font" style="height: 40px;top: 134px;left: 80px;background: white;color: white;">  CSS font-size<br />  40px</div>
-			<div class="line baseline" style="height: 12px;left: 323px;top: 165px;">  Font baseline 12px</div>
-			<div class="line half-leading" style="height: 22.5px;left: 428px;top: 100px;">  CSS half-leading<br />  22.5px</div>
-			<div class="line half-leading" style="height: 22.5px;left: 428px;top: 177px;">  CSS half-leading<br />  22.5px</div>
-			<div class="line leading" style="height: 45px;left: 118px;top: 177px;"><br>  CSS (physical)<br>  leading 45px</div>
-			<div class="line offset" style="height: 34.5px;left: 570px;top: 165px;">  Baseline<br />  offset<br />  34.5px</div>
+			<div class="line lineheight" style="left: 286px;">  CSS line-height <span class="val">100</span>px</div>
+			<div class="line content" style="left: 190px;"> CSS line box <span class="val"></span>px</div>
+			<div class="line baseline" style="left: 323px;">  Font baseline <span class="val"></span>px</div>
+			<div class="line half-leading half-leading-top" style="left: 428px;">  CSS half-leading<br />  <span class="val"></span>px</div>
+			<div class="line half-leading half-leading-bottom" style="left: 428px;">  CSS half-leading<br />  <span class="val"></span>px</div>
+			<div class="line leading" style="left: 118px;"><br>  CSS (physical)<br>  leading <span class="val"></span>px</div>
+			<div class="line offset" style="left: 570px;">  Baseline<br />  offset<br />  <span class="val"></span>px</div>
 		</div>
+
+		<script>
+
+			"use strict";
+
+			var fontBaseline     = window['font-baseline'],
+				node             = document.querySelector('.measure'),
+				info             = document.querySelector('.info p'),
+				parag            = node.querySelector('p'),
+				fontSlider       = document.querySelector('.font-size-input'),
+				lineHeightSlider = document.querySelector('.line-height-input'),
+				fontSelect       = document.querySelector('.font-input'),
+
+				lineHeightEl  = document.querySelector('.lineheight'),
+				lineHeightVal = lineHeightEl.querySelector('.val'),
+
+				baselineEl  = document.querySelector('.baseline'),
+				baselineVal = baselineEl.querySelector('.val'),
+
+				offsetEl  = document.querySelector('.offset'),
+				offsetVal = offsetEl.querySelector('.val'),
+
+				contentEl  = document.querySelector('.content'),
+				contentVal = contentEl.querySelector('.val'),
+
+				halfLeadingTopEl  = document.querySelector('.half-leading-top'),
+				halfLeadingTopVal = halfLeadingTopEl.querySelector('.val'),
+
+				halfLeadingBottomEl  = document.querySelector('.half-leading-bottom'),
+				halfLeadingBottomVal = halfLeadingBottomEl.querySelector('.val'),
+
+				leadingEl  = document.querySelector('.leading'),
+				leadingVal = leadingEl.querySelector('.val'),
+
+				fontSizeEl  = document.querySelector('.font-size'),
+				fontSizeVal = fontSizeEl.querySelector('.val');
+
+			function measure() {
+				var metrics = fontBaseline(parag);
+				console.log('Baseline details:', metrics);
+
+				info.textContent = JSON.stringify(metrics, null, '    ');
+				node.style.background = 'linear-gradient(to bottom, #87CEEB, #87CEEB 1px, rgba(0,0,0,0) 1px, rgba(0,0,0,0)) 0% -' + metrics.offset + 'px / 100% ' + metrics.line + 'px, linear-gradient(to bottom, hotpink, hotpink 1px, rgba(0,0,0,0) 1px, rgba(0,0,0,0)) 0% 0% / 100% ' + metrics.line + 'px';
+
+				lineHeightEl.style.top    = metrics.line + 'px';
+				lineHeightEl.style.height = metrics.line + 'px';
+				lineHeightVal.textContent = metrics.line;
+
+				baselineEl.style.top    = (metrics.line * 2) - metrics.offset + 'px';
+				baselineEl.style.height = metrics.baseline + 'px';
+				baselineVal.textContent = metrics.baseline;
+
+				offsetEl.style.top    = (metrics.line * 2) - metrics.offset + 'px';
+				offsetEl.style.height = metrics.offset + 'px';
+				offsetVal.textContent = metrics.offset;
+
+				contentEl.style.top    = (metrics.line * 2) - metrics.content - metrics.offset + metrics.baseline + 'px';
+				contentEl.style.height = metrics.content + 'px';
+				contentVal.textContent = metrics.content;
+
+				var leading = metrics.line - metrics.content;
+				var halfLeading = leading / 2;
+
+				halfLeadingTopEl.style.height = halfLeadingBottomEl.style.height = Math.abs(halfLeading) + 'px';
+				halfLeadingTopEl.style.top    = metrics.line + (halfLeading < 0 ? halfLeading : 0) + 'px';
+				halfLeadingBottomEl.style.top = (metrics.line * 2) - (halfLeading > 0 ? halfLeading : 0) + 'px';
+				halfLeadingTopVal.textContent = halfLeadingBottomVal.textContent = halfLeading;
+
+				leadingEl.style.top = (metrics.line - (Math.abs(leading) / 2)) + 'px';
+				leadingEl.style.height = Math.abs(leading) + 'px';
+				leadingVal.textContent = leading;
+
+				fontSizeVal.textContent = metrics.font;
+			}
+
+			function setFontSize(event) {
+				parag.style.fontSize = event.target.value + 'px';
+				measure();
+			}
+
+			function setLineHeight(event) {
+				parag.style.lineHeight = (event.target.value * 2) + 'px';
+				measure();
+			}
+
+			function setFont(event) {
+				parag.style.fontFamily = event.target.value;
+				measure();
+			}
+
+			fontSlider.addEventListener('change', setFontSize);
+			fontSlider.addEventListener('input', setFontSize);
+			lineHeightSlider.addEventListener('change', setLineHeight);
+			lineHeightSlider.addEventListener('input', setLineHeight);
+
+			fontSelect.addEventListener('change', setFont);
+
+			node.style.fontSize = '50px';
+			node.style.lineHeight = '100px';
+			node.style.fontFamily = 'Times New Roman';
+			measure();
+
+		</script>
 	</body>
 </html>
