@@ -1,5 +1,9 @@
 # Font Baseline Metrics in CSS & JavaScript
 
+Demos:
+- http://georgecrawford.github.io/font-baseline/demo/index.html
+- http://georgecrawford.github.io/font-baseline/demo/fonts.html
+- http://georgecrawford.github.io/font-baseline/demo/metrics.html
 
 Based on an original idea by [Alan Stearns](http://blogs.adobe.com/webplatform/2014/08/13/one-weird-trick-to-baseline-align-text/)
 
