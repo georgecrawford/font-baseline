@@ -5,7 +5,7 @@
 		var div   = document.createElement('div'),
 			style = document.createElement('style'),
 			strut = document.createElement('span'),
-			computedStyle, baselineHeight, strutHeight, fontSize;
+			computedStyle, baselineHeight, strutHeight, fontSize, lineHeight;
 
 		container = container || document.body;
 
@@ -15,6 +15,8 @@
 		style.sheet.insertRule('.font-baseline{visibility:hidden;height:100px;}', 0);
 		style.sheet.insertRule('.font-baseline span:after{content:\'\';height:100%;display:inline-block;}', 1);
 
+		// Thanks to Alan Stearns for the hack!
+		// http://blogs.adobe.com/webplatform/2014/08/13/one-weird-trick-to-baseline-align-text/
 		strut.textContent = 'T';
 		div.appendChild(strut);
 		div.classList.add('font-baseline');
